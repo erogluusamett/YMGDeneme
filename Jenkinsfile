@@ -35,8 +35,9 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                script {
-                    sh 'docker-compose -f docker-compose.yml up -d --build'
+                dir('YMGApp') {
+                    bat 'docker-compose down --volumes || exit 0'
+                    bat 'docker-compose up -d'
                 }
             }
         }
